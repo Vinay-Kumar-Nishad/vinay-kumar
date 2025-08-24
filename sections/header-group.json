@@ -46,17 +46,20 @@
         "hero_btn_link": ""
       }
     },
-    "custom_collection_F6gkYT": {
-      "type": "custom-collection",
-      "name": "Custom Collection",
+    "gift_guide_section_JeaBkV": {
+      "type": "gift-guide-section",
+      "name": "gift-guide-section",
       "settings": {
-        "title": "Our Collection"
+        "hero_title": "The Gift Guide",
+        "hero_subtitle": "Discover Joy: Your Ultimate Holiday Gift Destination. Explore our curated selection and find the perfect gifts to delight your loved ones this holiday season.",
+        "hero_btn_text": "SHOP NOW",
+        "hero_btn_link": ""
       }
     }
   },
   "order": [
     "header",
     "custom_secction_k9qhJT",
-    "custom_collection_F6gkYT"
+    "gift_guide_section_JeaBkV"
   ]
 }
