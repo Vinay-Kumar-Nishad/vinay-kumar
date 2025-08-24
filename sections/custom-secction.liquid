@@ -142,6 +142,72 @@
 </section>
 
 {% stylesheet %}
+.gift-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 40px 5%;
+  gap: 20px;
+  border-bottom: 1px solid #eee;
+  flex-wrap: wrap; /* responsive */
+}
+
+.gift-content {
+  flex: 1;
+  min-width: 280px;
+}
+
+.gift-banner {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  min-width: 280px;
+}
+
+.banner-img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+  .title {
+    font-size: 2.5rem;
+    font-weight: bold;
+  }
+  .subtitle {
+    margin: 15px 0;
+    font-size: 1rem;
+  }
+  .main-btn {
+    background: black;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+  }
+
+  @media screen and (min-width: 990px) {
+    .header {
+      grid-template-columns: 1fr 1fr !important;
+    }
+  }
+  @media (max-width: 768px) {
+     .gift-section {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .gift-banner {
+    justify-content: center;
+    margin-top: 20px;
+  }
+   
+   
+    .title {
+      font-size: 1.8rem;
+    }
+    .subtitle {
+      font-size: 0.9rem;
+    }
+  }
   .custom-collection {
     padding: 16px 8px;
   }
