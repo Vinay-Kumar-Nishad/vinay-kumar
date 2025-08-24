@@ -59,20 +59,6 @@
     },
     "product_hotspot_Xn4NQK": {
       "type": "product-hotspot",
-      "blocks": {
-        "hotspot_KYNc9C": {
-          "type": "hotspot",
-          "settings": {
-            "product_image": "shopify://shop_images/black-bag-over-the-shoulder_925x_4cae5708-5e9e-4e7e-96ec-9649f0c20cd8.jpg",
-            "product_handle": "black-leather-bag",
-            "pos_top": 60,
-            "pos_left": 53
-          }
-        }
-      },
-      "block_order": [
-        "hotspot_KYNc9C"
-      ],
       "name": "Product Hotspot Section",
       "settings": {
         "section-header": "Tisso vison in the wild",
