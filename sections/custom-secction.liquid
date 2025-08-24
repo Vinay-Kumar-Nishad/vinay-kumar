@@ -12,7 +12,7 @@
       "id": "hero_bg",
       "label": "banner Image"
     },
-    
+
     {
       "type": "text",
       "id": "tagline",
@@ -31,10 +31,10 @@
       "label": "choose Button Link"
     },
     {
-        "type": "image_picker",
-        "id": "banner_img",
-        "label": "gift banner image"
-      },
+      "type": "image_picker",
+      "id": "banner_img",
+      "label": "gift banner image"
+    },
     {
       "type": "text",
       "id": "hero_title",
@@ -150,204 +150,82 @@
 </section>
 
 {% stylesheet %}
-
-.bottom-text {background-color: #F5F5F5; color: #000; text-align: center; font-size: 16px;line-height: 13.42px; font-weight: 400; padding: 10px 50px;}
-.gift-section {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 40px 5%;
-  gap: 20px;
-  border-bottom: 1px solid #eee;
-  flex-wrap: wrap; /* responsive */
-}
-
-.gift-content {
-  flex: 1;
-  min-width: 280px;
-}
-
-.gift-banner {
-  flex: 1;
-  display: flex;
-  justify-content: flex-end;
-  min-width: 280px;
-}
-
-.banner-img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-}
-  .title {
-    font-size: 70px;
-    font-weight: 500;
-    line-height: 100%;
-    font-style: medium;
-    font-family: "jost";
-    margin: 0;
-  }
-  .subtitle {
-    font-size: 20px;
-    font-weight: 400;
-    line-height: 140%;
-    font-style: regular;
-    margin-top: 50px;
-    margin-bottom: 50px;
-    color: #000;
-  }
-  .main-btn {
-    background: #000;
-    color: #fff;
-    padding: 14.26px 55px;
-    text-decoration: none;
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 20.48px;
-    font-style: regular;
-    margin-top: 50px;
-    margin-bottom: 50px;
-    color: #000;
-  }
-
-  @media screen and (min-width: 990px) {
-    .header {
-      grid-template-columns: 1fr 1fr !important;
-    }
-  }
-  @media (max-width: 768px) {
-     .gift-section {
-    flex-direction: column;
+  .bottom-text {background-color: #F5F5F5; color: #000; text-align: center; font-size: 16px;line-height: 13.42px; font-weight: 400; padding: 10px 50px;}
+  .gift-section {
+    display: flex;
+    justify-content: space-between;
     align-items: center;
-    text-align: center;
-  }
-  .gift-banner {
-    justify-content: center;
-    margin-top: 20px;
-  }
-   
-   
-    .title {
-      font-size: 1.8rem;
-    }
-    .subtitle {
-      font-size: 0.9rem;
-    }
-  }
-  .custom-collection {
-    padding: 16px 8px;
-  }
-  .custom-collection-title {
-    font-size: 1.5rem;
-    margin-bottom: 20px;
-    text-align: center;
-  }
-  .custom-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    padding: 40px 5%;
     gap: 20px;
+    border-bottom: 1px solid #eee;
+    flex-wrap: wrap; /* responsive */
   }
-  .custom-item img {
-    width: 100%;
-    border-radius: 8px;
+
+  .gift-content {
+    flex: 1;
+    min-width: 280px;
+  }
+
+  .gift-banner {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    min-width: 280px;
+  }
+
+  .banner-img {
+    max-width: 100%;
+    height: auto;
     display: block;
   }
-
-  @media (max-width: 768px) {
-    .custom-collection {
-      padding: 40px 5%;
-    }
-    .custom-grid {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 15px;
-    }
-  }
-  @media (max-width: 480px) {
-    .custom-grid {
-      grid-template-columns: 1fr;
-    }
-  }
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 5%;
-      border-bottom: 1px solid #eee;
-    }
-    .logo img {
-      max-height: 40px;
-    }
-    .right {
-      display: flex;
-      gap: auto;
-      align-items: center;
-    }
-    .btn {
-      background: #FFF544;
-      padding: 8px 16px;
-      font-weight: bold;
-      text-decoration: none;
-    }
-
-    .hero {
-      position: relative;
-      text-align: left;
-      padding: 16px 8px;
-    }
-    .hero-bg img {
-      width: 100%;
-      max-height: 390px;
-      object-fit: cover;
-    }
-    .hero-content {
-      position: absolute;
-      top: 20%;
-      left: 10%;
-      max-width: 500px;
-    }
     .title {
-      font-size: 2.5rem;
-      font-weight: bold;
+      font-size: 70px;
+      font-weight: 500;
+      line-height: 100%;
+      font-style: medium;
+      font-family: "jost";
+      margin: 0;
     }
     .subtitle {
-      margin: 15px 0;
-      font-size: 1rem;
+      font-size: 20px;
+      font-weight: 400;
+      line-height: 140%;
+      font-style: regular;
+      margin-top: 50px;
+      margin-bottom: 50px;
+      color: #000;
     }
     .main-btn {
-      background: black;
-      color: white;
-      padding: 10px 20px;
+      background: #000;
+      color: #fff;
+      padding: 14.26px 55px;
       text-decoration: none;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 20.48px;
+      font-style: regular;
+      margin-top: 50px;
+      margin-bottom: 50px!important;
+      color: #000;
     }
 
-  @media screen and (min-width: 990px) {
+    @media screen and (min-width: 990px) {
       .header {
-          grid-template-columns: 1fr 1fr !important;
+        grid-template-columns: 1fr 1fr !important;
       }
-  }
+    }
     @media (max-width: 768px) {
-      .header {
-        flex-direction: column;
-        gap: auto;
-        text-align: center;
-      }
-      .right {
-        flex-direction: column;
-        gap: 10px;
-      }
-      .hero {
-        padding: 30px 5%;
-      }
-      .hero-content {
-        position: relative;
-        top: auto;
-        left: auto;
-        max-width: 100%;
-        margin-top: -40px;
-        background: rgba(255, 255, 255, 0.8);
-        padding: 20px;
-        border-radius: 8px;
-      }
+       .gift-section {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .gift-banner {
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+
       .title {
         font-size: 1.8rem;
       }
@@ -355,4 +233,125 @@
         font-size: 0.9rem;
       }
     }
+    .custom-collection {
+      padding: 16px 8px;
+    }
+    .custom-collection-title {
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .custom-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    .custom-item img {
+      width: 100%;
+      border-radius: 8px;
+      display: block;
+    }
+
+    @media (max-width: 768px) {
+      .custom-collection {
+        padding: 40px 5%;
+      }
+      .custom-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+      }
+    }
+    @media (max-width: 480px) {
+      .custom-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 5%;
+        border-bottom: 1px solid #eee;
+      }
+      .logo img {
+        max-height: 40px;
+      }
+      .right {
+        display: flex;
+        gap: auto;
+        align-items: center;
+      }
+      .btn {
+        background: #FFF544;
+        padding: 8px 16px;
+        font-weight: bold;
+        text-decoration: none;
+      }
+
+      .hero {
+        position: relative;
+        text-align: left;
+        padding: 16px 8px;
+      }
+      .hero-bg img {
+        width: 100%;
+        max-height: 390px;
+        object-fit: cover;
+      }
+      .hero-content {
+        position: absolute;
+        top: 20%;
+        left: 10%;
+        max-width: 500px;
+      }
+      .title {
+        font-size: 2.5rem;
+        font-weight: bold;
+      }
+      .subtitle {
+        margin: 15px 0;
+        font-size: 1rem;
+      }
+      .main-btn {
+        background: black;
+        color: white;
+        padding: 10px 20px;
+        text-decoration: none;
+      }
+
+    @media screen and (min-width: 990px) {
+        .header {
+            grid-template-columns: 1fr 1fr !important;
+        }
+    }
+      @media (max-width: 768px) {
+        .header {
+          flex-direction: column;
+          gap: auto;
+          text-align: center;
+        }
+        .right {
+          flex-direction: column;
+          gap: 10px;
+        }
+        .hero {
+          padding: 30px 5%;
+        }
+        .hero-content {
+          position: relative;
+          top: auto;
+          left: auto;
+          max-width: 100%;
+          margin-top: -40px;
+          background: rgba(255, 255, 255, 0.8);
+          padding: 20px;
+          border-radius: 8px;
+        }
+        .title {
+          font-size: 1.8rem;
+        }
+        .subtitle {
+          font-size: 0.9rem;
+        }
+      }
 {% endstylesheet %}
