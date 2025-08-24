@@ -1,57 +1,59 @@
 {% schema %}
-  {
-    "name": "custom-section",
-    "settings": [
-      {
-        "type": "image_picker",
-        "id": "logo",
-        "label": "Upload Logo"
-      },
-      {
-        "type": "image_picker",
-        "id": "hero_bg",
-        "label": "banner Image"
-      },
-      {
-        "type": "text",
-        "id": "tagline",
-        "label": "tagline",
-        "default": "Find the ideal gift for your loved ones."
-      },
-       {
-        "type": "text",
-        "id": "choose_btn_text",
-        "label": "Choose Button Text",
-        "default": "CHOOSE GIFT"
-      }, {
-        "type": "url",
-        "id": "choose_btn_link",
-        "label": "choose Button Link"
-      },
-      {
-        "type": "text",
-        "id": "hero_title",
-        "label": "Hero Title",
-        "default": "The Gift Guide"
-      },
-      {
-        "type": "textarea",
-        "id": "hero_subtitle",
-        "label": "Hero Subtitle",
-        "default": "Discover Joy: Your Ultimate Holiday Gift Destination. Explore our curated selection and find the perfect gifts to delight your loved ones this holiday season."
-      }, {
-        "type": "text",
-        "id": "hero_btn_text",
-        "label": "Hero Button Text",
-        "default": "SHOP NOW"
-      }, {
-        "type": "url",
-        "id": "hero_btn_link",
-        "label": "Hero Button Link"
-      },
-      
-    ],
-    "blocks": [
+{
+  "name": "custom-section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Upload Logo"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_bg",
+      "label": "banner Image"
+    },
+    {
+      "type": "text",
+      "id": "tagline",
+      "label": "tagline",
+      "default": "Find the ideal gift for your loved ones."
+    },
+    {
+      "type": "text",
+      "id": "choose_btn_text",
+      "label": "Choose Button Text",
+      "default": "CHOOSE GIFT"
+    },
+    {
+      "type": "url",
+      "id": "choose_btn_link",
+      "label": "choose Button Link"
+    },
+    {
+      "type": "text",
+      "id": "hero_title",
+      "label": "Hero Title",
+      "default": "The Gift Guide"
+    },
+    {
+      "type": "textarea",
+      "id": "hero_subtitle",
+      "label": "Hero Subtitle",
+      "default": "Discover Joy: Your Ultimate Holiday Gift Destination. Explore our curated selection and find the perfect gifts to delight your loved ones this holiday season."
+    },
+    {
+      "type": "text",
+      "id": "hero_btn_text",
+      "label": "Hero Button Text",
+      "default": "SHOP NOW"
+    },
+    {
+      "type": "url",
+      "id": "hero_btn_link",
+      "label": "Hero Button Link"
+    }
+  ],
+  "blocks": [
     {
       "type": "image_block",
       "name": "Image Item",
@@ -64,179 +66,195 @@
       ]
     }
   ],
-    "presets": [
-      {
-        "name": "custom-section"
-      }
-    ]
-  }
+  "presets": [
+    {
+      "name": "custom-section"
+    }
+  ]
+}
 {% endschema %}
 
 <section class="hero-section">
-
   <div class="header">
     {% if settings.logo %}
-    <div class="">
-      <a href="{{ routes.root_url }}" class="logo">
-        <img
-          src="{{ settings.logo | image_url: width: 151.42, height: 45 }}"
-          alt="{{ shop.name }}"
-          width="151"
-          height="45">
-      </a>
-
-    </div>  
+      <div class="">
+        <a href="{{ routes.root_url }}" class="logo">
+          <img
+            src="{{ settings.logo | image_url: width: 151.42, height: 45 }}"
+            alt="{{ shop.name }}"
+            width="151"
+            height="45"
+          >
+        </a>
+      </div>
     {% else %}
       <h2 class="logo-text">{{ shop.name }}</h2>
     {% endif %}
     <div class="">
       <span class="tagline">Find the ideal gift for your loved ones.</span>
     </div>
-   <div class="">
+    <div class="">
       <a href="{{ section.settings.choose_btn_link }}" class="btn choose_btn_text">CHOOSE GIFT <span> →</span></a>
-      </div>
+    </div>
   </div>
 
-    <div class="hero">
+  <div class="hero">
     {% if section.settings.hero_bg %}
       <div class="hero-bg">
         <img
           src="{{ section.settings.hero_bg | image_url: width: 1600 }}"
           alt="Gift Guide Background"
           width="{{ section.settings.hero_bg.width }}"
-          height="{{ section.settings.hero_bg.height }}">
+          height="{{ section.settings.hero_bg.height }}"
+        >
       </div>
     {% endif %}
-
-  
   </div>
 
-  
-
-  
+  <div class="gift-section">
+    <div class="gift-content">
+      <h1 class="title">{{ section.settings.hero_title }}</h1>
+      <p class="subtitle">{{ section.settings.hero_subtitle }}</p>
+      {% comment %} {% if section.settings.hero_btn_link %} {% endcomment %}
+      <a href="{{ section.settings.hero_btn_link | default: '#' }}" class="main-btn">
+        {{ section.settings.hero_btn_text }}
+      </a>
+      {% comment %} {% endif %} {% endcomment %}
+    </div>
+    {% if section.settings.banner_img %}
+      <div class="gift-banner">
+        <img
+          src="{{ section.settings.banner_img | image_url: width: 890 }}"
+          alt="{{ section.settings.hero_title }}"
+          width="{{ section.settings.banner_img.width }}"
+          height="{{ section.settings.banner_img.height }}"
+          class="banner-img"
+        >
+      </div>
+    {% endif %}
+  </div>
 </section>
 
-
 {% stylesheet %}
-.custom-collection {
-  padding: 16px 8px;
-}
-.custom-collection-title {
-  font-size: 1.5rem;
-  margin-bottom: 20px;
-  text-align: center;
-}
-.custom-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
-}
-.custom-item img { 
-  width: 100%; 
-  border-radius: 8px; 
-  display: block;
-}
-
-@media (max-width: 768px) {
   .custom-collection {
-    padding: 40px 5%;
-  }
-  .custom-grid {
-    grid-template-columns: repeat(2, 1fr);  
-    gap: 15px;
-  }
-}
-@media (max-width: 480px) {
-  .custom-grid {
-    grid-template-columns: 1fr;  
-  }
-}
-  .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 5%;
-    border-bottom: 1px solid #eee;
-  }
-  .logo img {
-    max-height: 40px;
-  }
-  .right {
-    display: flex;
-    gap: auto;
-    align-items: center;
-  }
-  .btn {
-    background: #FFF544;
-    padding: 8px 16px;
-    font-weight: bold;
-    text-decoration: none;
-  }
-
-  .hero {
-    position: relative;
-    text-align: left;
     padding: 16px 8px;
   }
-  .hero-bg img {
+  .custom-collection-title {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  .custom-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+  }
+  .custom-item img {
     width: 100%;
-    max-height: 400px;
-    object-fit: cover;
+    border-radius: 8px;
+    display: block;
   }
-  .hero-content {
-    position: absolute;
-    top: 20%;
-    left: 10%;
-    max-width: 500px;
-  }
-  .title {
-    font-size: 2.5rem;
-    font-weight: bold;
-  }
-  .subtitle {
-    margin: 15px 0;
-    font-size: 1rem;
-  }
-  .main-btn {
-    background: black;
-    color: white;
-    padding: 10px 20px;
-    text-decoration: none;
-  }
-  
-@media screen and (min-width: 990px) {
-    .header {
-        grid-template-columns: 1fr 1fr !important;
-    }
-}
+
   @media (max-width: 768px) {
+    .custom-collection {
+      padding: 40px 5%;
+    }
+    .custom-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+    }
+  }
+  @media (max-width: 480px) {
+    .custom-grid {
+      grid-template-columns: 1fr;
+    }
+  }
     .header {
-      flex-direction: column;
-      gap: auto;
-      text-align: center;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 5%;
+      border-bottom: 1px solid #eee;
+    }
+    .logo img {
+      max-height: 40px;
     }
     .right {
-      flex-direction: column;
-      gap: 10px;
+      display: flex;
+      gap: auto;
+      align-items: center;
     }
+    .btn {
+      background: #FFF544;
+      padding: 8px 16px;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
     .hero {
-      padding: 30px 5%;
+      position: relative;
+      text-align: left;
+      padding: 16px 8px;
+    }
+    .hero-bg img {
+      width: 100%;
+      max-height: 400px;
+      object-fit: cover;
     }
     .hero-content {
-      position: relative;
-      top: auto;
-      left: auto;
-      max-width: 100%;
-      margin-top: -40px;
-      background: rgba(255, 255, 255, 0.8);
-      padding: 20px;
-      border-radius: 8px;
+      position: absolute;
+      top: 20%;
+      left: 10%;
+      max-width: 500px;
     }
     .title {
-      font-size: 1.8rem;
+      font-size: 2.5rem;
+      font-weight: bold;
     }
     .subtitle {
-      font-size: 0.9rem;
+      margin: 15px 0;
+      font-size: 1rem;
     }
+    .main-btn {
+      background: black;
+      color: white;
+      padding: 10px 20px;
+      text-decoration: none;
+    }
+
+  @media screen and (min-width: 990px) {
+      .header {
+          grid-template-columns: 1fr 1fr !important;
+      }
   }
+    @media (max-width: 768px) {
+      .header {
+        flex-direction: column;
+        gap: auto;
+        text-align: center;
+      }
+      .right {
+        flex-direction: column;
+        gap: 10px;
+      }
+      .hero {
+        padding: 30px 5%;
+      }
+      .hero-content {
+        position: relative;
+        top: auto;
+        left: auto;
+        max-width: 100%;
+        margin-top: -40px;
+        background: rgba(255, 255, 255, 0.8);
+        padding: 20px;
+        border-radius: 8px;
+      }
+      .title {
+        font-size: 1.8rem;
+      }
+      .subtitle {
+        font-size: 0.9rem;
+      }
+    }
 {% endstylesheet %}
