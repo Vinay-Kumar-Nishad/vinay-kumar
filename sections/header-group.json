@@ -46,14 +46,6 @@
         "hero_btn_link": ""
       }
     },
-    "hero_banner_Lb9XLU": {
-      "type": "hero-banner",
-      "name": "Hero banner",
-      "settings": {
-        "title": "Our Collection",
-        "hero_bg": "shopify://shop_images/hero_banner.svg"
-      }
-    },
     "gift_guide_section_JeaBkV": {
       "type": "gift-guide-section",
       "name": "gift-guide-section",
@@ -69,7 +61,6 @@
   "order": [
     "header",
     "custom_secction_k9qhJT",
-    "hero_banner_Lb9XLU",
     "gift_guide_section_JeaBkV"
   ]
 }
