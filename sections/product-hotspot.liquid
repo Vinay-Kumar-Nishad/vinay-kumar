@@ -73,14 +73,14 @@
           >
           <button
             class="plus-icon"
-            style="top: {{ block.settings.pos_top }}%; left: {{ block.settings.pos_left }}%;"
+            style="top: {{ block.settings.pos_top }}%; left: {{ section.block.settings.pos_left }}%;"
             data-product='
               {
                 "id": {{ product.id }},
                 "title": "{{ product.title | escape }}",
                 "description": {{ product.description | strip_html | json }},
                 "price": {{ product.price }},
-                "featured_image": "{{ product.featured_image | img_url: "600x" }}",
+                "featured_image": "{{ product.featured_image | image_url: "600x" }}",
                 "variants": {{ product.variants | json }},
                 "options": {{ product.options_with_values | json }}
               }
