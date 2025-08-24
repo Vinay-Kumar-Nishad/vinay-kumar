@@ -54,6 +54,12 @@
       "default": "SHOP NOW"
     },
     {
+      "type": "text",
+      "id": "section_bottom_text",
+      "label": "section footer Text",
+      "default": "SUSTAINABLE, ETHICALLY MADE CLOTHES IN SIZES XXS TO 6XL"
+    },
+    {
       "type": "url",
       "id": "hero_btn_link",
       "label": "Hero Button Link"
@@ -139,6 +145,8 @@
       </div>
     {% endif %}
   </div>
+
+  <div class="bottom-text">{{ section.settings.section_bottom_text }}</div>
 </section>
 
 {% stylesheet %}
