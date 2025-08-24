@@ -64,48 +64,33 @@
 
 
 {% stylesheet %}
-.banner{
-    max-width:  890px;
-    display: flex;
+.gift-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 40px 5%;
+  gap: 20px;
+  border-bottom: 1px solid #eee;
+  flex-wrap: wrap; /* responsive */
 }
-  .gift-section {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 5%;
-    border-bottom: 1px solid #eee;
-  }
-  .logo img {
-    max-height: 40px;
-  }
-  .right {
-    display: flex;
-    gap: auto;
-    align-items: center;
-  }
-  .btn {
-    background: #FFF544;
-    padding: 8px 16px;
-    font-weight: bold;
-    text-decoration: none;
-  }
 
-  .hero {
-    position: relative;
-    text-align: left;
-    padding: 16px 8px;
-  }
-  .hero-bg img {
-    width: 100%;
-    max-height: 400px;
-    object-fit: cover;
-  }
-  .hero-content {
-    position: absolute;
-    top: 20%;
-    left: 10%;
-    max-width: 500px;
-  }
+.gift-content {
+  flex: 1;
+  min-width: 280px;
+}
+
+.gift-banner {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  min-width: 280px;
+}
+
+.banner-img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
   .title {
     font-size: 2.5rem;
     font-weight: bold;
