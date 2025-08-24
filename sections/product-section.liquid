@@ -235,16 +235,14 @@ document.addEventListener('DOMContentLoaded', function () {
   const modal = document.getElementById('hotspotModal');
   const modalBody = document.getElementById('modal-body');
   const closeBtn = document.querySelector('.close-btn');
-
-  // Loop through every product icon button
+ 
   document.querySelectorAll('.plus-icon').forEach((button) => {
     button.addEventListener('click', () => {
       const productData = JSON.parse(button.getAttribute('data-product'));
 
       let colorOptions = '';
       let sizeOptions = '';
-
-      // Generate options dynamically
+ 
       if (productData.options && productData.options.length > 0) {
         productData.options.forEach((opt, idx) => {
           if (opt.name.toLowerCase().includes('color')) {
@@ -280,8 +278,7 @@ document.addEventListener('DOMContentLoaded', function () {
       }
 
       const defaultVariantId = productData.variants[0].id;
-
-      // Build popup content
+ 
       modalBody.innerHTML = `
         <div class="product-popup">
           <img src="${productData.featured_image}" alt="${productData.title}">
@@ -301,8 +298,7 @@ document.addEventListener('DOMContentLoaded', function () {
       `;
 
       modal.style.display = 'block';
-
-      // Handle color selection
+ 
       modal.querySelectorAll('.color-btn').forEach((btn) => {
         btn.addEventListener('click', (e) => {
           e.preventDefault();
@@ -311,9 +307,8 @@ document.addEventListener('DOMContentLoaded', function () {
         });
       });
     });
-  });
+  }); 
 
-  // Close modal
   closeBtn.addEventListener('click', () => {
     modal.style.display = 'none';
   });
