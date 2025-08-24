@@ -177,10 +177,13 @@ document.addEventListener("DOMContentLoaded", function() {
           });
 
           popupData.innerHTML = `
+
+          <div class="product-card">
             <img src="${product.featured_image}" alt="${product.title}">
             <h2>${product.title}</h2>
             <p><strong>${(product.price/100).toFixed(2)} ${Shopify.currency.active}</strong></p>
             <p>${product.description}</p>
+            </div>
             ${optionsHtml}
             <button class="add-to-cart-btn" data-id="${product.variants[0].id}">
               ADD TO CART →
