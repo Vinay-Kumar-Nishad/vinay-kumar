@@ -229,3 +229,84 @@
     align-items: center;
   }
 {% endstylesheet %}
+
+{% javascript %}
+  document.addEventListener('DOMContentLoaded', function () {
+    const modal = document.getElementById('hotspotModal');
+    const modalBody = document.getElementById('modal-body');
+    const closeBtn = document.querySelector('.close-btn');
+
+    document.querySelectorAll('.plus-icon').forEach((button) => {
+      button.addEventListener('click', () => {
+        const productData = JSON.parse(button.getAttribute('data-product'));
+
+        let colorOptions = '';
+        let sizeOptions = '';
+
+        if (productData.options && productData.options.length > 0) {
+          productData.options.forEach((opt, idx) => {
+            if (opt.name.toLowerCase().includes('color')) {
+              colorOptions = `
+              <div class="color-options">
+                ${opt.values
+                  .map(
+                    (val) => `
+                  <button type="button" class="color-btn" data-option-index="${idx}" data-value="${val}">
+                    ${val}
+                  </button>
+                `
+                  )
+                  .join('')}
+              </div>
+            `;
+            }
+            if (opt.name.toLowerCase().includes('size')) {
+              sizeOptions = `
+              <select name="option${idx + 1}" class="size-dropdown" required>
+                <option value="">Choose your size</option>
+                ${opt.values.map((val) => `<option value="${val}">${val}</option>`).join('')}
+              </select>
+            `;
+            }
+          });
+        }
+
+        const defaultVariantId = productData.variants[0].id;
+
+        modalBody.innerHTML = `
+        <div class="product-popup">
+          <img src="${productData.featured_image}" alt="${productData.title}">
+          <h3>${productData.title}</h3>
+          <p class="price">${(productData.price / 100).toFixed(2)} {{ shop.currency }}</p>
+          <p class="description">${productData.description}</p>
+
+          <form method="post" action="/cart/add" id="popupCartForm">
+            <input type="hidden" name="id" value="${defaultVariantId}" id="variantIdInput">
+
+            ${colorOptions ? `<label>Color</label>${colorOptions}` : ''}
+            ${sizeOptions ? `<label>Size</label>${sizeOptions}` : ''}
+
+            <button type="submit" class="add-to-cart">ADD TO CART →</button>
+          </form>
+        </div>
+      `;
+
+        modal.style.display = 'block';
+
+        // handle color selection
+        document.querySelectorAll('.color-btn').forEach((btn) => {
+          btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            document.querySelectorAll('.color-btn').forEach((b) => b.classList.remove('active'));
+            btn.classList.add('active');
+          });
+        });
+      });
+    });
+
+    closeBtn.onclick = () => (modal.style.display = 'none');
+    window.onclick = (e) => {
+      if (e.target == modal) modal.style.display = 'none';
+    };
+  });
+{% endjavascript %}
