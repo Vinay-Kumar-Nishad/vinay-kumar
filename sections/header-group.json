@@ -55,11 +55,20 @@
         "section_header": "Tisso vison in the wild",
         "collection": "wild"
       }
+    },
+    "product_hotspot_Xn4NQK": {
+      "type": "product-hotspot",
+      "name": "Product Hotspot Section",
+      "settings": {
+        "section-header": "Featured Products",
+        "collection": "wild"
+      }
     }
   },
   "order": [
     "header",
     "custom_secction_k9qhJT",
-    "product_section_6UbkcD"
+    "product_section_6UbkcD",
+    "product_hotspot_Xn4NQK"
   ]
 }

@@ -11,6 +11,7 @@
   "sections": {
     "featured_collection_AG3KPn": {
       "type": "featured-collection",
+      "disabled": true,
       "name": "t:sections.featured-collection.presets.name",
       "settings": {
         "collection": "",
