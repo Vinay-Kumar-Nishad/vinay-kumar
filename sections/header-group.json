@@ -37,15 +37,26 @@
       "settings": {
         "logo": "shopify://shop_images/logo.svg",
         "hero_bg": "shopify://shop_images/hero_banner.svg",
+        "tagline": "Find the ideal gift for your loved ones.",
+        "choose_btn_text": "CHOOSE GIFT",
+        "choose_btn_link": "",
         "hero_title": "The Gift Guide",
         "hero_subtitle": "Discover Joy: Your Ultimate Holiday Gift Destination. Explore our curated selection and find the perfect gifts to delight your loved ones this holiday season.",
         "hero_btn_text": "SHOP NOW",
         "hero_btn_link": ""
       }
+    },
+    "custom_collection_F6gkYT": {
+      "type": "custom-collection",
+      "name": "Custom Collection",
+      "settings": {
+        "title": "Our Collection"
+      }
     }
   },
   "order": [
     "header",
-    "custom_secction_k9qhJT"
+    "custom_secction_k9qhJT",
+    "custom_collection_F6gkYT"
   ]
 }
