@@ -18,6 +18,16 @@
         "label": "tagline",
         "default": "Find the ideal gift for your loved ones."
       },
+       {
+        "type": "text",
+        "id": "choose_btn_text",
+        "label": "Choose Button Text",
+        "default": "CHOOSE GIFT"
+      }, {
+        "type": "url",
+        "id": "choose_btn_link",
+        "label": "choose Button Link"
+      },
       {
         "type": "text",
         "id": "hero_title",
@@ -68,8 +78,8 @@
     <div class="">
       <span class="tagline">Find the ideal gift for your loved ones.</span>
     </div>
-    <div class="">
-      <a href="#" class="btn">CHOOSE GIFT →</a>
+   <div class="">
+      <a href="{{ section.settings.choose_btn_link }}" class="btn choose_btn_text">CHOOSE GIFT <span> →</span></a>
       </div>
   </div>
 
