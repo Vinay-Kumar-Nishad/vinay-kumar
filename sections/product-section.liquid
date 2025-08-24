@@ -1,36 +1,36 @@
-{% schema %} 
+{% schema %}
+{
+  "name": "product-section",
+  "settings": [
     {
-        "name": "product-section",
-        "settings": [
-            {
-                "type": "text",
-                "id": "section-header", 
-                "label": "section header"  
-            }, 
-            {
-                "type": "image_picker",
-                "id": "product_img", 
-                "label": "select product image"  
-            }  
-            
-        ],
-        
-        "presets": [
-            {
-            "name": "product-section"
-            }
-        ]
+      "type": "text",
+      "id": "section-header",
+      "label": "section header"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "t:sections.featured-collection.settings.collection.label"
+    },
+    {
+      "type": "image_picker",
+      "id": "product_img",
+      "label": "select product image"
     }
-    
-{% endschema %} 
+  ],
 
+  "presets": [
+    {
+      "name": "product-section"
+    }
+  ]
+}
+{% endschema %}
 
 <div>
-    {{ section.settings.section-header }}
-    {{ section.settings.product_img }}
-</div> 
-
+  {{ section.settings['section-header'] }}
+  {{ section.settings.product_img }}
+</div>
 
 {% stylesheet %}
- 
 {% endstylesheet %}
