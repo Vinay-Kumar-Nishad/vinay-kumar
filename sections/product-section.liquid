@@ -1,38 +1,187 @@
 {% schema %}
 {
-  "name": "product-section",
+  "name": "Product Section",
   "settings": [
     {
       "type": "text",
-      "id": "section-header",
-      "label": "section header"
+      "id": "section_header",
+      "label": "Section Header",
+      "default": "Our Products"
     },
     {
       "type": "collection",
       "id": "collection",
-      "label": "t:sections.featured-collection.settings.collection.label"
-    },
-    {
-      "type": "image_picker",
-      "id": "product_img",
-      "label": "select product image"
+      "label": "Select Collection"
     }
   ],
-
   "presets": [
     {
-      "name": "product-section"
+      "name": "Product Section"
     }
   ]
 }
 {% endschema %}
 
-<div>
-    {{ section.settings.section-header}}
-    <div class="collection">
-        {{ section.settings.product_img }}
+<section class="product-section">
+  <h2 class="section-title">{{ section.settings.section_header }}</h2>
+
+  {% assign collection = collections[section.settings.collection] %}
+  {% if collection and collection.products_count > 0 %}
+    <div class="product-grid">
+      {% for product in collection.products %}
+        <div class="product-card" data-handle="{{ product.handle }}">
+          <img 
+            src="{{ product.featured_image | image_url: width: 400 }}" 
+            alt="{{ product.title }}" 
+            class="product-image"
+             width="{{ section.settings.hero_bg.width }}"
+            height="{{ section.settings.hero_bg.height }}"
+          >
+          <h3 class="product-title">{{ product.title }}</h3>
+          <p class="price">{{ product.price | money }}</p>
+        </div>
+      {% endfor %}
     </div>
-</div>
+  {% else %}
+    <p>No products found in this collection.</p>
+  {% endif %}
+
+  <!-- Popup Modal -->
+  <div id="product-popup" class="product-popup">
+    <div class="popup-content">
+      <span class="close-btn">&times;</span>
+      <div id="popup-data">Loading...</div>
+    </div>
+  </div>
+</section>
 
 {% stylesheet %}
+.product-section {
+  padding: 40px 5%;
+}
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+.product-card {
+  cursor: pointer;
+  text-align: center;
+}
+.product-card img {
+  width: 100%;
+  border-radius: 8px;
+}
+.product-popup {
+  display: none;
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.7);
+  z-index: 9999;
+  justify-content: center;
+  align-items: center;
+}
+.popup-content {
+  background: #fff;
+  padding: 20px;
+  width: 90%;
+  max-width: 600px;
+  border-radius: 8px;
+  position: relative;
+}
+.close-btn {
+  position: absolute;
+  top: 10px; right: 15px;
+  font-size: 24px;
+  cursor: pointer;
+}
+#popup-data img {
+  max-width: 150px;
+  margin-bottom: 15px;
+}
+.variant-select {
+  width: 100%;
+  padding: 8px;
+  margin: 10px 0;
+}
+.add-to-cart-btn {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  background: black;
+  color: white;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  margin-top: 15px;
+}
+.add-to-cart-btn:hover {
+  background: #333;
+}
 {% endstylesheet %}
+
+{% javascript %}
+document.addEventListener("DOMContentLoaded", function() {
+  const cards = document.querySelectorAll(".product-card");
+  const popup = document.getElementById("product-popup");
+  const popupData = document.getElementById("popup-data");
+  const closeBtn = document.querySelector(".close-btn");
+
+  cards.forEach(card => {
+    card.addEventListener("click", function() {
+      const handle = this.dataset.handle;
+      popup.style.display = "flex";
+      popupData.innerHTML = "Loading...";
+
+      // Fetch product JSON data
+      fetch(`/products/${handle}.js`)
+        .then(response => response.json())
+        .then(product => {
+          let optionsHtml = "";
+          product.options.forEach(option => {
+            optionsHtml += `<label>${option.name}</label>
+              <select class="variant-select" data-option="${option.name}">
+                ${option.values.map(v => `<option value="${v}">${v}</option>`).join("")}
+              </select>`;
+          });
+
+          popupData.innerHTML = `
+            <img src="${product.featured_image}" alt="${product.title}">
+            <h2>${product.title}</h2>
+            <p><strong>${(product.price/100).toFixed(2)} ${Shopify.currency.active}</strong></p>
+            <p>${product.description}</p>
+            ${optionsHtml}
+            <button class="add-to-cart-btn" data-id="${product.variants[0].id}">
+              ADD TO CART →
+            </button>
+          `;
+
+          // Add to cart event
+          const btn = popupData.querySelector(".add-to-cart-btn");
+          btn.addEventListener("click", function() {
+            const variantId = btn.dataset.id;
+            fetch('/cart/add.js', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ id: variantId, quantity: 1 })
+            })
+            .then(res => res.json())
+            .then(data => {
+              alert(`${product.title} added to cart!`);
+              popup.style.display = "none";
+            });
+          });
+        });
+    });
+  });
+
+  closeBtn.addEventListener("click", function() {
+    popup.style.display = "none";
+  });
+
+  window.addEventListener("click", function(e) {
+    if (e.target === popup) {
+      popup.style.display = "none";
+    }
+  });
+});
+{% endjavascript %}
