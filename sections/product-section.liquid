@@ -278,13 +278,12 @@ document.addEventListener('DOMContentLoaded', function () {
       }
 
       const defaultVariantId = productData.variants[0].id;
-      // const currency = {{ shop.currency }}
  
       modalBody.innerHTML = `
         <div class="product-popup">
           <img src="${productData.featured_image}" alt="${productData.title}">
           <h3>${productData.title}</h3>
-          <p class="price">${(productData.price / 100).toFixed(2)} {{` shop.currency `}}</p>
+          <p class="price">${(productData.price / 100).toFixed(2)} {`${ shop.currency }`}</p>
           <p class="description">${productData.description || ''}</p>
 
           <form method="post" action="/cart/add" id="popupCartForm">
