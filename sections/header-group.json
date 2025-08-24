@@ -46,22 +46,10 @@
         "hero_btn_text": "SHOP NOW",
         "hero_btn_link": ""
       }
-    },
-    "gift_guide_section_JeaBkV": {
-      "type": "gift-guide-section",
-      "name": "gift-guide-section",
-      "settings": {
-        "banner_img": "shopify://shop_images/section_banner.svg",
-        "hero_title": "The Gift Guide",
-        "hero_subtitle": "Discover Joy: Your Ultimate Holiday Gift Destination. Explore our curated selection and find the perfect gifts to delight your loved ones this holiday season.",
-        "hero_btn_text": "SHOP NOW",
-        "hero_btn_link": ""
-      }
     }
   },
   "order": [
     "header",
-    "custom_secction_k9qhJT",
-    "gift_guide_section_JeaBkV"
+    "custom_secction_k9qhJT"
   ]
 }
