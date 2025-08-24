@@ -9,21 +9,39 @@
       "default": "Our Collection"
     }
   ],
+  "blocks": [
+    {
+      "type": "image_block",
+      "name": "Image Item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        }
+      ]
+    }
+  ],
   "presets": [
     {
-      "name": "Custom Collection"
+      "name": "Custom Collection",
+      "category": "Custom"
     }
   ]
 }
 {% endschema %}
 
 <section class="custom-collection">
-  <h2 class="custom-collection-title">{{ section.settings.collection_title }}</h2>
+  <h2 class="custom-collection-title">{{ section.settings.title }}</h2>
   <div class="custom-grid">
     {% for block in section.blocks %}
       <div class="custom-item">
         {% if block.settings.image %}
-          <img src="{{ block.settings.image | image_url: width: 500 }}" alt="Item" width="{{ block.settings.image.width }}" height="{{ block.settings.image.height }}">
+          <img 
+            src="{{ block.settings.image | image_url: width: 500 }}" 
+            alt="{{ block.settings.image.alt | escape }}" 
+            width="{{ block.settings.image.width }}" 
+            height="{{ block.settings.image.height }}">
         {% endif %}
       </div>
     {% endfor %}
@@ -50,7 +68,6 @@
   display: block;
 }
 
- 
 @media (max-width: 768px) {
   .custom-collection {
     padding: 40px 5%;
