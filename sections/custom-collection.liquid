@@ -1,3 +1,22 @@
+{% schema %}
+{
+  "name": "Custom Collection",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Our Collection"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Collection"
+    }
+  ]
+}
+{% endschema %}
+
 <section class="custom-collection">
   <h2 class="custom-collection-title">{{ section.settings.collection_title }}</h2>
   <div class="custom-grid">
