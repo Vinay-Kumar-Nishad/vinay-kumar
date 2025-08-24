@@ -34,8 +34,8 @@
             src="{{ product.featured_image | image_url: width: 400 }}" 
             alt="{{ product.title }}" 
             class="product-image"
-             width="{{ section.settings.hero_bg.width }}"
-            height="{{ section.settings.hero_bg.height }}"
+             width="{{ product.featured_image.width }}"
+            height="{{ product.featured_image.height }}"
           >
           <h3 class="product-title">{{ product.title }}</h3>
           <p class="price">{{ product.price | money }}</p>
