@@ -50,6 +50,7 @@
     },
     "product_section_6UbkcD": {
       "type": "product-section",
+      "disabled": true,
       "name": "product-section",
       "settings": {
         "section_header": "Tisso vison in the wild",
@@ -60,7 +61,7 @@
       "type": "product-hotspot",
       "name": "Product Hotspot Section",
       "settings": {
-        "section-header": "Featured Products",
+        "section-header": "Tisso vison in the wild",
         "collection": "wild"
       }
     }
