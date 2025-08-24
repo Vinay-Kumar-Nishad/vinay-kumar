@@ -56,6 +56,30 @@
 </section>
 
 {% stylesheet %}
+
+.option-tabs {
+  display: flex;
+  gap: 10px;
+  margin: 10px 0 20px;
+}
+.option-tab {
+  padding: 8px 16px;
+  border: 1px solid #ccc;
+  background: #fff;
+  cursor: pointer;
+  font-size: 14px;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+.option-tab.active {
+  border-color: #000;
+  background: #000;
+  color: #fff;
+}
+.option-tab:hover {
+  border-color: #000;
+}
+
 .product-section {
   padding: 40px 5%;
 }
@@ -132,16 +156,24 @@ document.addEventListener("DOMContentLoaded", function() {
       popup.style.display = "flex";
       popupData.innerHTML = "Loading...";
 
-      // Fetch product JSON data
       fetch(`/products/${handle}.js`)
         .then(response => response.json())
         .then(product => {
           let optionsHtml = "";
-          product.options.forEach(option => {
-            optionsHtml += `<label>${option.name}</label>
-              <select class="variant-select" data-option="${option.name}">
-                ${option.values.map(v => `<option value="${v}">${v}</option>`).join("")}
-              </select>`;
+
+          product.options.forEach((option, i) => {
+            optionsHtml += `
+              <div class="variant-option">
+                <label>${option.name}</label>
+                <div class="option-tabs" data-option-index="${i}">
+                  ${option.values.map((v, idx) => `
+                    <button class="option-tab ${idx === 0 ? 'active' : ''}" data-value="${v}">
+                      ${v}
+                    </button>
+                  `).join("")}
+                </div>
+              </div>
+            `;
           });
 
           popupData.innerHTML = `
@@ -155,17 +187,38 @@ document.addEventListener("DOMContentLoaded", function() {
             </button>
           `;
 
-          // Add to cart event
-          const btn = popupData.querySelector(".add-to-cart-btn");
-          btn.addEventListener("click", function() {
-            const variantId = btn.dataset.id;
+          // Track selected options
+          let selectedOptions = product.options.map(opt => opt.values[0]);
+
+          // Tab click handler
+          popupData.querySelectorAll(".option-tab").forEach(tab => {
+            tab.addEventListener("click", function() {
+              const parent = this.closest(".option-tabs");
+              parent.querySelectorAll(".option-tab").forEach(btn => btn.classList.remove("active"));
+              this.classList.add("active");
+              const optIndex = parent.dataset.optionIndex;
+              selectedOptions[optIndex] = this.dataset.value;
+
+              // Find matching variant
+              const selectedVariant = product.variants.find(v => 
+                JSON.stringify(v.options) === JSON.stringify(selectedOptions)
+              );
+              if (selectedVariant) {
+                popupData.querySelector(".add-to-cart-btn").dataset.id = selectedVariant.id;
+              }
+            });
+          });
+
+          // Add to cart
+          popupData.querySelector(".add-to-cart-btn").addEventListener("click", function() {
+            const variantId = this.dataset.id;
             fetch('/cart/add.js', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({ id: variantId, quantity: 1 })
             })
             .then(res => res.json())
-            .then(data => {
+            .then(() => {
               alert(`${product.title} added to cart!`);
               popup.style.display = "none";
             });
@@ -174,14 +227,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   });
 
-  closeBtn.addEventListener("click", function() {
-    popup.style.display = "none";
-  });
-
-  window.addEventListener("click", function(e) {
-    if (e.target === popup) {
-      popup.style.display = "none";
-    }
-  });
+  closeBtn.addEventListener("click", () => popup.style.display = "none");
+  window.addEventListener("click", e => { if (e.target === popup) popup.style.display = "none"; });
 });
 {% endjavascript %}
