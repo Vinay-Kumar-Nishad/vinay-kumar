@@ -141,6 +141,7 @@
 .add-to-cart-btn:hover {
   background: #333;
 }
+.product-card-details
 {% endstylesheet %}
 
 {% javascript %}
@@ -178,7 +179,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
           popupData.innerHTML = `
 
-          <div class="product-card">
+          <div class="product-card-details">
             <img src="${product.featured_image}" alt="${product.title}">
             <h2>${product.title}</h2>
             <p><strong>${(product.price/100).toFixed(2)} ${Shopify.currency.active}</strong></p>
