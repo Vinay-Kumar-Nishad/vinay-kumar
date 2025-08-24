@@ -35,6 +35,7 @@
       "type": "custom-secction",
       "name": "custom-section",
       "settings": {
+        "logo": "shopify://shop_images/logo.svg",
         "hero_bg": "shopify://shop_images/hero_banner.svg",
         "hero_title": "The Gift Guide",
         "hero_subtitle": "Discover Joy: Your Ultimate Holiday Gift Destination. Explore our curated selection and find the perfect gifts to delight your loved ones this holiday season.",

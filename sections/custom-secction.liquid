@@ -1,156 +1,181 @@
-
 {% schema %}
-{
-  "name": "custom-section",
-  "settings": [
-    {
-      "type": "image_picker",
-      "id": "logo",
-      "label": "Upload Logo"
-    },
-    {
-      "type": "image_picker",
-      "id": "hero_bg",
-      "label": "Hero Background Image"
-    },
-    {
-      "type": "text",
-      "id": "hero_title",
-      "label": "Hero Title",
-      "default": "The Gift Guide"
-    },
-    {
-      "type": "textarea",
-      "id": "hero_subtitle",
-      "label": "Hero Subtitle",
-      "default": "Discover Joy: Your Ultimate Holiday Gift Destination. Explore our curated selection and find the perfect gifts to delight your loved ones this holiday season."
-    },
-    {
-      "type": "text",
-      "id": "hero_btn_text",
-      "label": "Hero Button Text",
-      "default": "SHOP NOW"
-    },
-    {
-      "type": "url",
-      "id": "hero_btn_link",
-      "label": "Hero Button Link"
-    }
-  ],
-  "presets": [
-    {
-      "name": "custom-section"
-    }
-  ]
-}
+  {
+    "name": "custom-section",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Upload Logo"
+      },
+      {
+        "type": "image_picker",
+        "id": "hero_bg",
+        "label": "Hero Background Image"
+      },
+      {
+        "type": "text",
+        "id": "hero_title",
+        "label": "Hero Title",
+        "default": "The Gift Guide"
+      },
+      {
+        "type": "textarea",
+        "id": "hero_subtitle",
+        "label": "Hero Subtitle",
+        "default": "Discover Joy: Your Ultimate Holiday Gift Destination. Explore our curated selection and find the perfect gifts to delight your loved ones this holiday season."
+      }, {
+        "type": "text",
+        "id": "hero_btn_text",
+        "label": "Hero Button Text",
+        "default": "SHOP NOW"
+      }, {
+        "type": "url",
+        "id": "hero_btn_link",
+        "label": "Hero Button Link"
+      }
+    ],
+    "presets": [
+      {
+        "name": "custom-section"
+      }
+    ]
+  }
 {% endschema %}
 
-<section class="hero-section"> 
+<section class="hero-section">
 
   <div class="header">
     {% if settings.logo %}
+    <div class="">
       <a href="{{ routes.root_url }}" class="logo">
-        <img src="{{ settings.logo | image_url: width: 151.42, height: 45 }}" alt="{{ shop.name }}" width="151" height="45">
+        <img
+          src="{{ settings.logo | image_url: width: 151.42, height: 45 }}"
+          alt="{{ shop.name }}"
+          width="151"
+          height="45">
       </a>
+
+    </div>  
     {% else %}
       <h2 class="logo-text">{{ shop.name }}</h2>
     {% endif %}
-    <div class="right">
+    <div class="">
       <span class="tagline">Find the ideal gift for your loved ones.</span>
-      <a href="#" class="btn ms-auto">CHOOSE GIFT →</a>
     </div>
-  </div> 
+    <div class="">
+      <a href="#" class="btn">CHOOSE GIFT →</a>
+      </div>
+  </div>
 
   <div class="hero">
     {% if section.settings.hero_bg %}
       <div class="hero-bg">
-        <img src="{{ section.settings.hero_bg | image_url: width: 1600 }}" alt="Gift Guide Background"
+        <img
+          src="{{ section.settings.hero_bg | image_url: width: 1600 }}"
+          alt="Gift Guide Background"
           width="{{ section.settings.hero_bg.width }}"
           height="{{ section.settings.hero_bg.height }}">
       </div>
     {% endif %}
 
-    {% comment %} <div class="hero-content">
-      <h1 class="title">{{ section.settings.hero_title }}</h1>
-      <p class="subtitle">{{ section.settings.hero_subtitle }}</p>
-      <a href="{{ section.settings.hero_btn_link }}" class="main-btn">
-        {{ section.settings.hero_btn_text }}
-      </a>
-    </div> {% endcomment %}
+  {% comment %} <div class="hero-content">
+          <h1 class="title">{{ section.settings.hero_title }}</h1>
+          <p class="subtitle">{{ section.settings.hero_subtitle }}</p>
+          <a href="{{ section.settings.hero_btn_link }}" class="main-btn">
+            {{ section.settings.hero_btn_text }}
+          </a>
+      </div> {% endcomment %}
   </div>
 </section>
 
 
 {% stylesheet %}
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 5%;
-  border-bottom: 1px solid #eee;
-}
-.logo img { max-height: 40px; }
-.right {
-  display: flex;
-  gap: 20px;
-  align-items: center;
-}
-.btn {
-  background: #FFF544;
-  padding: 8px 16px;
-  font-weight: bold;
-  text-decoration: none;
-}
-
-.hero {
-  position: relative;
-  text-align: left;
-  padding: 60px 5%;
-}
-.hero-bg img {
-  width: 100%;
-  max-height: 400px;
-  object-fit: cover;
-}
-.hero-content {
-  position: absolute;
-  top: 20%;
-  left: 10%;
-  max-width: 500px;
-}
-.title { font-size: 2.5rem; font-weight: bold; }
-.subtitle { margin: 15px 0; font-size: 1rem; }
-.main-btn {
-  background: black;
-  color: white;
-  padding: 10px 20px;
-  text-decoration: none;
-}
-
-@media (max-width: 768px) {
   .header {
-    flex-direction: column;
-    gap: 10px;
-    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 5%;
+    border-bottom: 1px solid #eee;
+  }
+  .logo img {
+    max-height: 40px;
   }
   .right {
-    flex-direction: column;
-    gap: 10px;
+    display: flex;
+    gap: auto;
+    align-items: center;
   }
+  .btn {
+    background: #FFF544;
+    padding: 8px 16px;
+    font-weight: bold;
+    text-decoration: none;
+  }
+
   .hero {
-    padding: 30px 5%;
+    position: relative;
+    text-align: left;
+    padding: 16px 8px;
+  }
+  .hero-bg img {
+    width: 100%;
+    max-height: 400px;
+    object-fit: cover;
   }
   .hero-content {
-    position: relative;
-    top: auto;
-    left: auto;
-    max-width: 100%;
-    margin-top: -40px;
-    background: rgba(255,255,255,0.8);
-    padding: 20px;
-    border-radius: 8px;
+    position: absolute;
+    top: 20%;
+    left: 10%;
+    max-width: 500px;
   }
-  .title { font-size: 1.8rem; }
-  .subtitle { font-size: 0.9rem; }
+  .title {
+    font-size: 2.5rem;
+    font-weight: bold;
+  }
+  .subtitle {
+    margin: 15px 0;
+    font-size: 1rem;
+  }
+  .main-btn {
+    background: black;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+  }
+  
+@media screen and (min-width: 990px) {
+    .header {
+        grid-template-columns: 1fr 1fr;
+    }
 }
+  @media (max-width: 768px) {
+    .header {
+      flex-direction: column;
+      gap: 10px;
+      text-align: center;
+    }
+    .right {
+      flex-direction: column;
+      gap: 10px;
+    }
+    .hero {
+      padding: 30px 5%;
+    }
+    .hero-content {
+      position: relative;
+      top: auto;
+      left: auto;
+      max-width: 100%;
+      margin-top: -40px;
+      background: rgba(255, 255, 255, 0.8);
+      padding: 20px;
+      border-radius: 8px;
+    }
+    .title {
+      font-size: 1.8rem;
+    }
+    .subtitle {
+      font-size: 0.9rem;
+    }
+  }
 {% endstylesheet %}
