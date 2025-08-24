@@ -145,6 +145,10 @@
   display: flex;
   justify-content: space-between;
 }
+.product-inner-details{
+  display: flex;
+  flex-direction: column;
+}
 {% endstylesheet %}
 
 {% javascript %}
@@ -182,11 +186,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
           popupData.innerHTML = `
 
-          <div class="product-card-details">
-            <img src="${product.featured_image}" alt="${product.title}">
-            <h2>${product.title}</h2>
-            <p><strong>${(product.price/100).toFixed(2)} ${Shopify.currency.active}</strong></p>
-            <p>${product.description}</p>
+            <div class="product-card-details">
+              <img src="${product.featured_image}" alt="${product.title}">
+              <div class="product-inner-details">
+                <h2>${product.title}</h2>
+                <p><strong>${(product.price/100).toFixed(2)} ${Shopify.currency.active}</strong></p>
+                <p>${product.description}</p>
+              </div>
             </div>
             ${optionsHtml}
             <button class="add-to-cart-btn" data-id="${product.variants[0].id}">
