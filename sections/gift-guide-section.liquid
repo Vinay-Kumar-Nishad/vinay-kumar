@@ -54,10 +54,13 @@
     <img
       src="{{ section.settings.banner_img | image_url: width: 890 }}"
       alt="{{ section.settings.hero_title }}"
+       width="{{ section.settings.banner_img.width }}"
+      height="{{ section.settings.banner_img.height }}" 
       class="banner-img" />
   </div>
   {% endif %}
 </section>
+ 
 
 
 {% stylesheet %}
