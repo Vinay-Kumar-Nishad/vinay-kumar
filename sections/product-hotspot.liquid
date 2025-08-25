@@ -312,6 +312,9 @@
     color: #000;
     line-height: 110%;
   }
+  .selected-options{
+    visibility: hidden;
+  }
 
   @media (max-width: 768px) {
     
@@ -350,27 +353,28 @@
           productData.options.forEach((opt, idx) => {
             if (opt.name.toLowerCase().includes('color')) {
               colorOptions = `
-              <div class="color-options">
-                ${opt.values
-                  .map(
-                    (val) => `
-                  <button type="button" class="color-btn" data-option-index="${idx}" data-value="${val}">
-                    <span class="color-bar" style="
-                      background-color: ${val};"></span>${val}
-                  </button>
-                `
-                  )
-                  .join('')}
-              </div>
-            `;
+                <div class="color-options">
+                  ${opt.values
+                    .map(
+                      (val) => `
+                        <button type="button" class="color-btn" 
+                          data-option-index="${idx}" 
+                          data-value="${val}">
+                          <span class="color-bar" style="background-color:${val};"></span>${val}
+                        </button>
+                      `
+                    )
+                    .join('')}
+                </div>
+              `;
             }
             if (opt.name.toLowerCase().includes('size')) {
               sizeOptions = `
-              <select name="option${idx + 1}" class="size-dropdown" required>
-                <option value="">Choose your size</option>
-                ${opt.values.map((val) => `<option value="${val}">${val}</option>`).join('')}
-              </select>
-            `;
+                <select name="option${idx + 1}" class="size-dropdown" data-option-index="${idx}" required>
+                  <option value="">Choose your size</option>
+                  ${opt.values.map((val) => `<option value="${val}">${val}</option>`).join('')}
+                </select>
+              `;
             }
           });
         }
@@ -378,37 +382,114 @@
         const defaultVariantId = productData.variants[0].id;
 
         modalBody.innerHTML = `
-        <div class="product-popup">     
-          <div class="product-card-details">
-            <div>
+          <div class="product-popup">     
+            <div class="product-card-details">
+              <div>
                 <img src="${productData.featured_image}" alt="${productData.title}">
-            </div>
-            <div class="product-inner-details">
+              </div>
+              <div class="product-inner-details">
                 <h3 class="inner-title">${productData.title}</h3>
                 <p class="price">${(productData.price / 100).toFixed(2)} {{ shop.currency }}</p>
                 <p class="description">${productData.description}</p>
+                <p class="selected-options"><strong>Selected:</strong> <span id="selectedValues">Default</span></p>
+              </div>
             </div>
+            <form id="popupCartForm">
+              <input type="hidden" name="id" value="${defaultVariantId}" id="variantIdInput">
+              ${colorOptions ? `<label>Color</label>${colorOptions}` : ''}
+              ${sizeOptions ? `<label>Size</label>${sizeOptions}` : ''}
+              <button type="submit" class="add-to-cart">ADD TO CART →</button>
+            </form>
           </div>
-          <form method="post" action="/cart/add" id="popupCartForm">
-            <input type="hidden" name="id" value="${defaultVariantId}" id="variantIdInput">
-  
-            ${colorOptions ? `<label>Color</label>${colorOptions}` : ''}
-            ${sizeOptions ? `<label>Size</label>${sizeOptions}` : ''}
-  
-            <button type="submit" class="add-to-cart">ADD TO CART →</button>
-          </form>
-        </div>
-      `;
+        `;
 
         modal.style.display = 'block';
 
-        // handle color selection
-        document.querySelectorAll('.color-btn').forEach((btn) => {
+        const variantInput = document.getElementById('variantIdInput');
+        const colorBtns = modal.querySelectorAll('.color-btn');
+        const sizeDropdown = modal.querySelector('.size-dropdown');
+        const selectedValuesDisplay = document.getElementById('selectedValues');
+
+        let selectedOptions = productData.options.map(() => null);
+
+        // 👇 function to update displayed selected values
+        function updateSelectedText() {
+          let text = [];
+          selectedOptions.forEach((opt, i) => {
+            if (opt) text.push(`${productData.options[i].name}: ${opt}`);
+          });
+          selectedValuesDisplay.textContent = text.length ? text.join(' / ') : "None";
+        }
+
+        // 👇 update variant id based on options
+        function updateVariant() {
+          const matchedVariant = productData.variants.find((v) => {
+            return v.options.every((opt, i) => !selectedOptions[i] || opt === selectedOptions[i]);
+          });
+          if (matchedVariant) {
+            variantInput.value = matchedVariant.id;
+            console.log("Selected Variant:", matchedVariant);
+          }
+          updateSelectedText();
+        }
+
+        // Handle color selection
+        colorBtns.forEach((btn) => {
           btn.addEventListener('click', (e) => {
             e.preventDefault();
-            document.querySelectorAll('.color-btn').forEach((b) => b.classList.remove('active'));
+            colorBtns.forEach((b) => b.classList.remove('active'));
             btn.classList.add('active');
+
+            const idx = btn.dataset.optionIndex;
+            selectedOptions[idx] = btn.dataset.value;
+            updateVariant();
           });
+        });
+
+        // Handle size selection
+        if (sizeDropdown) {
+          sizeDropdown.addEventListener('change', (e) => {
+            const idx = e.target.dataset.optionIndex;
+            selectedOptions[idx] = e.target.value;
+            updateVariant();
+          });
+        }
+
+        // Handle Add to Cart via AJAX
+        const form = document.getElementById('popupCartForm');
+        form.addEventListener('submit', function (e) {
+          e.preventDefault();
+
+          fetch('/cart/add.js', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json',
+            },
+            body: JSON.stringify({
+              id: variantInput.value,
+              quantity: 1,
+            }),
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              alert(`${productData.title} (${selectedValuesDisplay.textContent}) added to cart! for full detail view on console response.`);
+              modal.style.display = 'none';
+
+              // Optional: update cart count
+              const cartCount = document.querySelector('.cart-count');
+              if (cartCount) {
+                fetch('/cart.js')
+                  .then((res) => res.json())
+                  .then((cart) => {
+                    cartCount.textContent = cart.item_count;
+                  });
+              }
+            })
+            .catch((err) => {
+              console.error('Error adding to cart:', err);
+              alert('Something went wrong!');
+            });
         });
       });
     });
@@ -419,3 +500,5 @@
     };
   });
 </script>
+
+
