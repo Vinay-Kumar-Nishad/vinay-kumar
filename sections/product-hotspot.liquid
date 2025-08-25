@@ -1,73 +1,78 @@
 {% schema %}
-  {
-    "name": "Product Section",
-    "settings": [
-      {
-        "type": "text",
-        "id": "section_header",
-        "label": "Section Header",
-        "default": "Featured Products"
-      }, {
-        "type": "collection",
-        "id": "collection",
-        "label": "Select Collection"
-      }, {
-        "type": "select",
-        "id": "products_show",
-        "label": "Number of products to show",
-        "options": [
-          {
-            "value": "3",
-            "label": "3 (one row)"
-          }, {
-            "value": "6",
-            "label": "6 (two rows)"
-          }
-        ],
-        "default": "6"
-      }
-    ],
-    "blocks": [
-      {
-        "type": "hotspot",
-        "name": "Hotspot Item",
-        "settings": [
-          {
-            "type": "image_picker",
-            "id": "product_image",
-            "label": "Background Image"
-          }, {
-            "type": "product",
-            "id": "product_handle",
-            "label": "Select Product"
-          }, {
-            "type": "range",
-            "id": "pos_top",
-            "label": "Top Position (%)",
-            "min": 0,
-            "max": 100,
-            "step": 1,
-            "default": 20
-          }, {
-            "type": "range",
-            "id": "pos_left",
-            "label": "Left Position (%)",
-            "min": 0,
-            "max": 100,
-            "step": 1,
-            "default": 20
-          }
-        ]
-      }
-    ],
-    "presets": [
-      {
-        "name": "Product Section"
-      }
-    ]
-  }
+{
+  "name": "Product Section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_header",
+      "label": "Section Header",
+      "default": "Featured Products"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Select Collection"
+    },
+    {
+      "type": "select",
+      "id": "products_show",
+      "label": "Number of products to show",
+      "options": [
+        {
+          "value": "3",
+          "label": "3 (one row)"
+        },
+        {
+          "value": "6",
+          "label": "6 (two rows)"
+        }
+      ],
+      "default": "6"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "hotspot",
+      "name": "Hotspot Item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "product_image",
+          "label": "Background Image"
+        },
+        {
+          "type": "product",
+          "id": "product_handle",
+          "label": "Select Product"
+        },
+        {
+          "type": "range",
+          "id": "pos_top",
+          "label": "Top Position (%)",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "default": 20
+        },
+        {
+          "type": "range",
+          "id": "pos_left",
+          "label": "Left Position (%)",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "default": 20
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Section"
+    }
+  ]
+}
 {% endschema %}
-
 
 <div class="hotspot-section">
   <h2 class="left">{{ section.settings['section-header'] }}</h2>
@@ -85,21 +90,25 @@
               alt="{{ product.title }}"
               class="w-full h-auto"
               width="{{ product.featured_image.width }}"
-              height="{{ product.featured_image.height }}">
+              height="{{ product.featured_image.height }}"
+            >
             {% for block in section.blocks %}
               {% if block.type == 'hotspot' %}
                 <button
                   class="plus-icon absolute"
                   style="top: {{ block.settings.pos_top }}%; left: {{ block.settings.pos_left }}%;"
-                  data-product='{
-                  "id": {{ product.id }},
-                  "title": {{ product.title | json }},
-                  "description": {{ product.description | strip_html | json }},
-                  "price": {{ product.price | money_without_currency | json }},
-                  "featured_image": {{ product.featured_image | image_url: width: 600 | json }},
-                  "variants": {{ product.variants | json }},
-                  "options": {{ product.options_with_values | json }}
-                }'>
+                  data-product='
+                    {
+                      "id": {{ product.id }},
+                      "title": {{ product.title | json }},
+                      "description": {{ product.description | strip_html | json }},
+                      "price": {{ product.price | money_without_currency | json }},
+                      "featured_image": {{ product.featured_image | image_url: width: 600 | json }},
+                      "variants": {{ product.variants | json }},
+                      "options": {{ product.options_with_values | json }}
+                    }
+                  '
+                >
                   +
                 </button>
               {% endif %}
@@ -107,11 +116,9 @@
           </div>
           {% comment %} <p class="product-title mt-2 font-semibold">{{ product.title }}</p> {% endcomment %}
         </div>
-        </div>
-      {% endfor %}
+      </div>
+    {% endfor %}
   </div>
-
-
 </div>
 
 <!-- Modal -->
@@ -123,7 +130,7 @@
 </div>
 
 <style>
- 
+
   .hotspot-section {
     text-align: center;
     padding: 40px 20px;
@@ -261,14 +268,14 @@
     const modal = document.getElementById('hotspotModal');
     const modalBody = document.getElementById('modal-body');
     const closeBtn = document.querySelector('.close-btn');
-  
+
     document.querySelectorAll('.plus-icon').forEach((button) => {
       button.addEventListener('click', () => {
         const productData = JSON.parse(button.getAttribute('data-product'));
-  
+
         let colorOptions = '';
         let sizeOptions = '';
-  
+
         if (productData.options && productData.options.length > 0) {
           productData.options.forEach((opt, idx) => {
             if (opt.name.toLowerCase().includes('color')) {
@@ -296,16 +303,21 @@
             }
           });
         }
-  
+
         const defaultVariantId = productData.variants[0].id;
-  
+
         modalBody.innerHTML = `
-        <div class="product-popup">
-          <img src="${productData.featured_image}" alt="${productData.title}">
-          <h3>${productData.title}</h3>
-          <p class="price">${(productData.price / 100).toFixed(2)} {{ shop.currency }}</p>
-          <p class="description">${productData.description}</p>
-  
+        <div class="product-popup">     
+          <div class="d-flex justify-space-between">
+            <div>
+                <img src="${productData.featured_image}" alt="${productData.title}">
+            </div>
+            <div>
+                <h3>${productData.title}</h3>
+                <p class="price">${(productData.price / 100).toFixed(2)} {{ shop.currency }}</p>
+                <p class="description">${productData.description}</p>
+            </div>
+            </div>
           <form method="post" action="/cart/add" id="popupCartForm">
             <input type="hidden" name="id" value="${defaultVariantId}" id="variantIdInput">
   
@@ -316,9 +328,9 @@
           </form>
         </div>
       `;
-  
+
         modal.style.display = 'block';
-  
+
         // handle color selection
         document.querySelectorAll('.color-btn').forEach((btn) => {
           btn.addEventListener('click', (e) => {
@@ -329,7 +341,7 @@
         });
       });
     });
-  
+
     closeBtn.onclick = () => (modal.style.display = 'none');
     window.onclick = (e) => {
       if (e.target == modal) modal.style.display = 'none';
