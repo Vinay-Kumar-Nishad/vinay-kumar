@@ -31,7 +31,7 @@
         "padding_bottom": 20
       }
     },
-    "custom_section_k9qhJT": {
+    "custom_secction_k9qhJT": {
       "type": "custom-section",
       "name": "custom-section",
       "settings": {
@@ -51,6 +51,6 @@
   },
   "order": [
     "header",
-    "custom_section_k9qhJT"
+    "custom_secction_k9qhJT"
   ]
 }
