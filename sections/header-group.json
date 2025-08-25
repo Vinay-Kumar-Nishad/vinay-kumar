@@ -47,10 +47,19 @@
         "section_bottom_text": "SUSTAINABLE, ETHICALLY MADE CLOTHES IN SIZES XXS TO 6XL",
         "hero_btn_link": ""
       }
+    },
+    "product_section_w63Mz7": {
+      "type": "product-section",
+      "name": "Product Section",
+      "settings": {
+        "section_header": "Our Products",
+        "collection": "wild"
+      }
     }
   },
   "order": [
     "header",
-    "custom_secction_k9qhJT"
+    "custom_secction_k9qhJT",
+    "product_section_w63Mz7"
   ]
 }
