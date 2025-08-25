@@ -79,7 +79,6 @@
 
   <div class="product-grid">
     {% assign total_to_show = section.settings.products_show | default: 6 | plus: 0 %}
-    {% comment %} {% assign products = collections[section.settings.collection].products | slice: 0, total_to_show %} {% endcomment %}
     
     {% for product in section.settings.collection.products limit: total_to_show %}
       <div class="grid ">
@@ -162,7 +161,7 @@
     border-radius: 50%;
     width: 22px;
     height: 22px;
-    font-size: 20px;
+    font-size: 18px;
     cursor: pointer;
     line-height: 32px;
     text-align: center;
