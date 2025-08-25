@@ -75,7 +75,7 @@
 {% endschema %}
 
 <div class="hotspot-section">
-  <h2 class="left">{{ section.settings['section_header'] }}</h2>
+  <h2 class="left mobile-hd">{{ section.settings['section_header'] }}</h2>
 
   <div class="product-grid">
     {% assign total_to_show = section.settings.products_show | default: 6 | plus: 0 %}
@@ -139,7 +139,7 @@
   }
   .product-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(425px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: 15px;
     font-family: "Jost", sans-serif;
   }
@@ -311,6 +311,24 @@
     font-size: 14px;
     color: #000;
     line-height: 110%;
+  }
+
+  @media (max-width: 768px) {
+    
+    .hotspot-section h2.left{
+        text-align: center;
+    }
+     .product-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px; 
+    }
+
+  }
+  @media (max-width: 480px) {
+    .product-grid {
+      grid-template-columns: repeat(2, 1fr); 
+      gap: 10px;
+    }
   }
 
 </style>
