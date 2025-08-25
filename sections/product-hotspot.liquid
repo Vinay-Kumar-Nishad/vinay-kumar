@@ -6,7 +6,7 @@
       "type": "text",
       "id": "section_header",
       "label": "Section Header",
-      "default": "Featured Products"
+      "default": "Tisso vison in the wild"
     },
     {
       "type": "collection",
@@ -79,9 +79,9 @@
 
   <div class="product-grid">
     {% assign total_to_show = section.settings.products_show | default: 6 | plus: 0 %}
-    {% comment %} {% assign products = collections[section.settings.collection].products | slice: 0, section.settings.products_show %} {% endcomment %}
-{% assign products = collections[section.settings.collection].products | slice: 0, total_to_show %}
-    {% for product in section.settings.collection.products limit: total_to_show %}
+    {% assign products = collections[section.settings.collection].products | slice: 0, total_to_show %}
+
+    {% for product in  products limit: total_to_show %}
       <div class="grid ">
         <div class="product-card border p-4 text-center">
           <div class="product-image relative">
