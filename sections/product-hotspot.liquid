@@ -92,8 +92,8 @@
               width="{{ product.featured_image.width }}"
               height="{{ product.featured_image.height }}"
             >
-            {% for block in section.blocks %}
-              {% if block.type == 'hotspot' %}
+             {% for block in section.blocks %}
+            {% if block.type == 'hotspot' and block.settings.product_handle == product.handle %}
                 <button
                   class="plus-icon absolute"
                   style="top: {{ block.settings.pos_top }}%; left: {{ block.settings.pos_left }}%;"
