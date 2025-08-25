@@ -78,48 +78,46 @@
   <h2 class="left">{{ section.settings['section-header'] }}</h2>
 
   <div class="product-grid">
-    {% assign total_to_show = section.settings.products_show | default: 6 | plus: 0 %}
-    {% comment %} {% assign products = collections[section.settings.collection].products | slice: 0, section.settings.products_show %} {% endcomment %}
-{% assign products = collections[section.settings.collection].products | slice: 0, total_to_show %}
-    {% for product in products  %}
-      <div class="grid ">
-        <div class="product-card border p-4 text-center">
-          <div class="product-image relative">
-            <img
-              src="{{ product.featured_image | image_url: width: 433 }}"
-              alt="{{ product.title }}"
-              class="w-full h-auto"
-              width="{{ product.featured_image.width }}"
-              height="{{ product.featured_image.height }}"
-            >
-            {% for block in section.blocks %}
-              {% if block.type == 'hotspot' and block.settings.product_handle == product.handle %}
-                <button
-                  class="plus-icon absolute"
-                  style="top: {{ block.settings.pos_top }}%; left: {{ block.settings.pos_left }}%;"
-                  data-product='
-                    {
-                      "id": {{ product.id }},
-                      "title": {{ product.title | json }},
-                      "description": {{ product.description | strip_html | json }},
-                      "price": {{ product.price | money_without_currency | json }},
-                      "featured_image": {{ product.featured_image | image_url: width: 600 | json }},
-                      "variants": {{ product.variants | json }},
-                      "options": {{ product.options_with_values | json }}
-                    }
-                  '
-                >
-                  +
-                </button>
-              {% endif %}
-            {% endfor %}
-          </div>
-          {% comment %} <p class="product-title mt-2 font-semibold">{{ product.title }}</p> {% endcomment %}
+  {% assign total_to_show = section.settings.products_show | default: 6 | plus: 0 %}
+  {% assign products = collections[section.settings.collection].products | slice: 0, total_to_show %}
+
+  <div class="grid grid-3">
+    {% for product in products %}
+      <div class="product-card border p-4 text-center">
+        <div class="product-image relative">
+          <img
+            src="{{ product.featured_image | image_url: width: 433 }}"
+            alt="{{ product.title }}"
+            class="w-full h-auto"
+            width="{{ product.featured_image.width }}"
+            height="{{ product.featured_image.height }}"
+          >
+
+          {% for block in section.blocks %}
+            {% if block.type == 'hotspot' and block.settings.product_handle == product.handle %}
+              <button
+                class="plus-icon absolute"
+                style="top: {{ block.settings.pos_top }}%; left: {{ block.settings.pos_left }}%;"
+                data-product='{
+                  "id": {{ product.id }},
+                  "title": {{ product.title | json }},
+                  "description": {{ product.description | strip_html | json }},
+                  "price": {{ product.price | money_without_currency | json }},
+                  "featured_image": {{ product.featured_image | image_url: width: 600 | json }},
+                  "variants": {{ product.variants | json }},
+                  "options": {{ product.options_with_values | json }}
+                }'
+              >+</button>
+            {% endif %}
+          {% endfor %}
         </div>
+
+        <p class="product-title mt-2 font-semibold">{{ product.title }}</p>
       </div>
     {% endfor %}
   </div>
 </div>
+
 
 <!-- Modal -->
 <div id="hotspotModal" class="modal">
