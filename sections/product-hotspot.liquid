@@ -1,17 +1,26 @@
 {% schema %}
 {
-  "name": "Produc Section",
+  "name": "Product Section",
   "settings": [
     {
       "type": "text",
-      "id": "section-header",
-      "label": "Section header",
+      "id": "section_header",
+      "label": "Section Header",
       "default": "Featured Products"
     },
     {
       "type": "collection",
       "id": "collection",
-      "label": "Select collection"
+      "label": "Select Collection"
+    },
+    {
+      "type": "range",
+      "id": "products_show",
+      "label": "Number of products to show",
+      "default": 3, 
+      "step": 1,
+      "min": 1,
+      "max": 60
     }
   ],
   "blocks": [
@@ -52,48 +61,50 @@
   ],
   "presets": [
     {
-      "name": "Product Hotspot Section"
+      "name": "Product Section"
     }
   ]
 }
 {% endschema %}
 
+
 <div class="hotspot-section">
-  <h2>{{ section.settings['section-header'] }}</h2>
+  <h2 class="left">{{ section.settings['section-header'] }}</h2>
 
   <div class="product-grid">
-    {% for product in section.settings.collection.products %}
-      <div class="product-card">
-        <div class="product-image">
-          <img
-            src="{{ product.featured_image | img_url: '600x' }}"
-            alt="{{ product.title }} "
-            width="{{ product.featured_image.width }}"
-            height="{{ product.featured_image.height }}"
-          >
-          <button
-            class="plus-icon"
-            style="top: {{ section.blocks.settings.pos_top }}%; left: {{ section.blocks.settings.pos_left }}%;"
-            data-product='
-              {
+  {% for product in collections[section.settings.collection].products limit: section.settings.products_show %}
+    <div class="product-card">
+      <div class="product-image">
+        <img
+          src="{{ product.featured_image | image_url: width: 600 }}"
+          alt="{{ product.title }}"
+          width="{{ product.featured_image.width }}"
+          height="{{ product.featured_image.height }}"
+        >
+
+        {% for block in section.blocks %}
+            {% if block.type == 'hotspot' %}
+              <button
+                class="plus-icon"
+                style="top: {{ block.settings.pos_top }}%; left: {{ block.settings.pos_left }}%; position: absolute;"
+                data-product='{
                 "id": {{ product.id }},
-                "title": "{{ product.title | escape }}",
+                "title": {{ product.title | json }},
                 "description": {{ product.description | strip_html | json }},
-                "price": {{ product.price }},
-                "featured_image": "{{ product.featured_image | image_url: "600x" }}",
+                "price": {{ product.price | money_without_currency | json }},
+                "featured_image": {{ product.featured_image | image_url: width: 600 | json }},
                 "variants": {{ product.variants | json }},
                 "options": {{ product.options_with_values | json }}
-              }
-            '
-            
-          >
-            +
-          </button>
-        </div>
-        <p class="product-title">{{ product.title }}</p>
-      </div>
-    {% endfor %}
-  </div>
+              }'>
+                +
+              </button>
+            {% endif %}
+          {% endfor %} 
+      </div> 
+    </div>
+  {% endfor %}
+</div>
+
 </div>
 
 <!-- Modal -->
@@ -129,8 +140,8 @@
     position: absolute;
     top: 15px;
     right: 15px;
-    background: #F8F8F8E5;
-    color: #000;
+    background: #000;
+    color: #fff;
     border: none;
     border-radius: 50%;
     width: 32px;
