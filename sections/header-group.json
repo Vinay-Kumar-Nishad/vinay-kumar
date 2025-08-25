@@ -31,26 +31,42 @@
         "padding_bottom": 20
       }
     },
-    "custom_secction_k9qhJT": {
-      "type": "custom-section",
-      "name": "custom-section",
+    "product_section_6UbkcD": {
+      "type": "product-section",
+      "disabled": true,
+      "name": "product-section",
       "settings": {
-        "logo": "shopify://shop_images/logo.svg",
-        "hero_bg": "shopify://shop_images/hero_banner.svg",
-        "tagline": "Find the ideal gift for your loved ones.",
-        "choose_btn_text": "CHOOSE GIFT",
-        "choose_btn_link": "",
-        "banner_img": "shopify://shop_images/section_banner.svg",
-        "hero_title": "The Gift Guide",
-        "hero_subtitle": "Discover Joy: Your Ultimate Holiday Gift Destination. Explore our curated selection and find the perfect gifts to delight your loved ones this holiday season.",
-        "hero_btn_text": "SHOP NOW",
-        "section_bottom_text": "SUSTAINABLE, ETHICALLY MADE CLOTHES IN SIZES XXS TO 6XL",
-        "hero_btn_link": ""
+        "section_header": "Tisso vison in the wild",
+        "collection": "wild"
+      }
+    },
+    "product_hotspot_Xn4NQK": {
+      "type": "product-hotspot",
+      "blocks": {
+        "hotspot_FQ4H3M": {
+          "type": "hotspot",
+          "settings": {
+            "product_image": "shopify://shop_images/black-bag-over-the-shoulder_925x_4cae5708-5e9e-4e7e-96ec-9649f0c20cd8.jpg",
+            "product_handle": "black-leather-bag",
+            "pos_top": 55,
+            "pos_left": 42
+          }
+        }
+      },
+      "block_order": [
+        "hotspot_FQ4H3M"
+      ],
+      "name": "Product Hotspot Section",
+      "settings": {
+        "section_header": "Featured Products",
+        "collection": "wild",
+        "products_show": "3"
       }
     }
   },
   "order": [
     "header",
-    "custom_secction_k9qhJT"
+    "product_section_6UbkcD",
+    "product_hotspot_Xn4NQK"
   ]
 }
