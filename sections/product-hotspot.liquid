@@ -1,0 +1,403 @@
+{% schema %}
+{
+  "name": "Product Section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_header",
+      "label": "Section Header",
+      "default": "Tisso vison in the wild"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Select Collection"
+    },
+    {
+      "type": "select",
+      "id": "products_show",
+      "label": "Number of products to show",
+      "options": [
+        {
+          "value": "3",
+          "label": "3 (one row)"
+        },
+        {
+          "value": "6",
+          "label": "6 (two rows)"
+        }
+      ],
+      "default": "6"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "hotspot",
+      "name": "Hotspot Item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "product_image",
+          "label": "Background Image"
+        },
+        {
+          "type": "product",
+          "id": "product_handle",
+          "label": "Select Product"
+        },
+        {
+          "type": "range",
+          "id": "pos_top",
+          "label": "Top Position (%)",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "default": 20
+        },
+        {
+          "type": "range",
+          "id": "pos_left",
+          "label": "Left Position (%)",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "default": 20
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Section"
+    }
+  ]
+}
+{% endschema %}
+
+<div class="hotspot-section">
+  <h2 class="left">{{ section.settings['section_header'] }}</h2>
+
+  <div class="product-grid">
+    {% assign total_to_show = section.settings.products_show | default: 6 | plus: 0 %}
+    
+    {% for product in section.settings.collection.products limit: total_to_show %}
+      <div class="grid ">
+        <div class="product-card border p-4 text-center">
+          <div class="product-image relative">
+            <img
+              src="{{ product.featured_image | image_url: width: 433 }}"
+              alt="{{ product.title }}"
+              class="w-full h-auto"
+              width="{{ product.featured_image.width }}"
+              height="{{ product.featured_image.height }}"
+            >
+             {% for block in section.blocks %}
+            {% if block.type == 'hotspot' and block.settings.product_handle == product.handle %}
+                <button
+                  class="plus-icon absolute"
+                  style="top: {{ block.settings.pos_top }}%; left: {{ block.settings.pos_left }}%;"
+                  data-product='
+                    {
+                      "id": {{ product.id }},
+                      "title": {{ product.title | json }},
+                      "description": {{ product.description | strip_html | json }},
+                      "price": {{ product.price | money_without_currency | json }},
+                      "featured_image": {{ product.featured_image | image_url: width: 600 | json }},
+                      "variants": {{ product.variants | json }},
+                      "options": {{ product.options_with_values | json }}
+                    }
+                  '
+                >
+                  +
+                </button>
+              {% endif %}
+            {% endfor %}
+          </div>
+          {% comment %} <p class="product-title mt-2 font-semibold">{{ product.title }}</p> {% endcomment %}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+<!-- Modal -->
+<div id="hotspotModal" class="modal">
+  <div class="modal-content">
+    <span class="close-btn">&times;</span>
+    <div id="modal-body"></div>
+  </div>
+</div>
+
+<style>
+
+  .hotspot-section {
+    text-align: center;
+    padding: 40px 20px;
+  }
+  .grid{
+    margin-bottom: 0px;
+  }
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(425px, 1fr));
+    gap: 15px;
+    font-family: "Jost", sans-serif;
+  }
+  .product-card {
+    position: relative;
+  }
+  .product-image {
+    position: relative;
+  }
+  .product-image img {
+    width: 100%;
+    border-radius: 8px;
+    height: auto
+  }
+  .plus-icon {
+    position: absolute;
+    top: 5px;
+    right: 15px;
+    background: #F8F8F8E5;
+    color: #000000;
+    border: none;
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    font-size: 18px;
+    cursor: pointer;
+    line-height: 22px;
+    text-align: center;
+  }
+  .product-title {
+    margin-top: 10px;
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+     font-family: "Jost", sans-serif!important;
+    
+  }
+  .modal-content {
+    background: #fff;
+    margin: 5% auto;
+    padding: 15px;
+    font-size: 14px;
+    border-radius: 8px;
+    max-width: 300px;
+    position: relative;
+    font-family: "Jost", sans-serif !important;
+  }
+  .close-btn {
+    position: absolute;
+    top: 12px;
+    right: 18px;
+    font-size: 26px;
+    cursor: pointer;
+  }
+  .product-popup img {
+    max-width: 100%;
+    margin-bottom: 15px;
+  }
+  .product-popup h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  .product-popup .price {
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  .product-popup .description {
+    font-size: 14px;
+    color: #444;
+    margin-bottom: 15px;
+    line-height: 110%;
+  }
+
+  .color-options {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+  }
+  .color-btn {
+    padding: 10px 15px;
+    border: 1px solid #000;
+    background: #fff;
+    cursor: pointer;
+    border-radius: 4px;
+    position: relative;
+    width:50%;
+    height: 40.44px;
+    font-size:18px;
+    /* letter-spacing: -2px; */
+    line-height: 100%;
+    font-weight: 400;
+    color: #000;
+    text-align: left;
+
+  }
+  .color-btn.active {
+    background: #000;
+    color: #fff;
+  }
+
+  .size-dropdown {
+    width: 100%;
+    padding: 6px;
+    margin-bottom: 15px;
+    height: 40.44px;
+    font-size:16px;
+    font-family: "Jost", sans-serif;
+  }
+  .add-to-cart {
+    width: 100%;
+    background: #000;
+    color: #fff;
+    border: none;
+    padding: 12px;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-top: 50px;
+  }
+  .add-to-cart-btn:hover {
+    background: #333;
+  }
+
+  .product-card-details {
+    display: flex;
+  }
+  .product-inner-details {
+    display: flex;
+    flex-direction: column;
+    padding-left: 20px;
+    align-items: start;
+  }
+  .color-bar{
+    display: inline-block;
+    height: 100%;
+    width: 5.81px;
+    margin-right: 8px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    border-right: 1px solid #000;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+  }
+  .product-inner-details .inner-title {
+    font-size: 16px; 
+    font-weight: 500;
+    line-height: 120%;
+    font-style: light; 
+  }
+  .product-inner-details .price {
+    font-size: 16px;
+    font-weight: 400;
+    margin: 8px 0;
+    line-height: 120%;
+    font-family: "Lustria", sans-serif;
+  }
+  .product-inner-details .description {
+    font-size: 14px;
+    color: #000;
+    line-height: 110%;
+  }
+
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const modal = document.getElementById('hotspotModal');
+    const modalBody = document.getElementById('modal-body');
+    const closeBtn = document.querySelector('.close-btn');
+
+    document.querySelectorAll('.plus-icon').forEach((button) => {
+      button.addEventListener('click', () => {
+        const productData = JSON.parse(button.getAttribute('data-product'));
+
+        let colorOptions = '';
+        let sizeOptions = '';
+
+        if (productData.options && productData.options.length > 0) {
+          productData.options.forEach((opt, idx) => {
+            if (opt.name.toLowerCase().includes('color')) {
+              colorOptions = `
+              <div class="color-options">
+                ${opt.values
+                  .map(
+                    (val) => `
+                  <button type="button" class="color-btn" data-option-index="${idx}" data-value="${val}">
+                    <span class="color-bar" style="
+                      background-color: ${val};"></span>${val}
+                  </button>
+                `
+                  )
+                  .join('')}
+              </div>
+            `;
+            }
+            if (opt.name.toLowerCase().includes('size')) {
+              sizeOptions = `
+              <select name="option${idx + 1}" class="size-dropdown" required>
+                <option value="">Choose your size</option>
+                ${opt.values.map((val) => `<option value="${val}">${val}</option>`).join('')}
+              </select>
+            `;
+            }
+          });
+        }
+
+        const defaultVariantId = productData.variants[0].id;
+
+        modalBody.innerHTML = `
+        <div class="product-popup">     
+          <div class="product-card-details">
+            <div>
+                <img src="${productData.featured_image}" alt="${productData.title}">
+            </div>
+            <div class="product-inner-details">
+                <h3 class="inner-title">${productData.title}</h3>
+                <p class="price">${(productData.price / 100).toFixed(2)} {{ shop.currency }}</p>
+                <p class="description">${productData.description}</p>
+            </div>
+          </div>
+          <form method="post" action="/cart/add" id="popupCartForm">
+            <input type="hidden" name="id" value="${defaultVariantId}" id="variantIdInput">
+  
+            ${colorOptions ? `<label>Color</label>${colorOptions}` : ''}
+            ${sizeOptions ? `<label>Size</label>${sizeOptions}` : ''}
+  
+            <button type="submit" class="add-to-cart">ADD TO CART →</button>
+          </form>
+        </div>
+      `;
+
+        modal.style.display = 'block';
+
+        // handle color selection
+        document.querySelectorAll('.color-btn').forEach((btn) => {
+          btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            document.querySelectorAll('.color-btn').forEach((b) => b.classList.remove('active'));
+            btn.classList.add('active');
+          });
+        });
+      });
+    });
+
+    closeBtn.onclick = () => (modal.style.display = 'none');
+    window.onclick = (e) => {
+      if (e.target == modal) modal.style.display = 'none';
+    };
+  });
+</script>
