@@ -48,18 +48,33 @@
         "hero_btn_link": ""
       }
     },
-    "product_section_w63Mz7": {
-      "type": "product-section",
+    "product_hotspot_VHtXGa": {
+      "type": "product-hotspot",
+      "blocks": {
+        "hotspot_BdDbdJ": {
+          "type": "hotspot",
+          "settings": {
+            "product_image": "shopify://shop_images/black-bag-over-the-shoulder_925x_4cae5708-5e9e-4e7e-96ec-9649f0c20cd8.jpg",
+            "product_handle": "black-leather-bag",
+            "pos_top": 51,
+            "pos_left": 55
+          }
+        }
+      },
+      "block_order": [
+        "hotspot_BdDbdJ"
+      ],
       "name": "Product Section",
       "settings": {
-        "section_header": "Our Products",
-        "collection": "wild"
+        "section_header": "Featured Products",
+        "collection": "wild",
+        "products_show": "6"
       }
     }
   },
   "order": [
     "header",
     "custom_secction_k9qhJT",
-    "product_section_w63Mz7"
+    "product_hotspot_VHtXGa"
   ]
 }
