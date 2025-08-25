@@ -48,43 +48,10 @@
         "hero_btn_link": ""
       }
     },
-    "product_hotspot_VHtXGa": {
+    "product_hotspot_hcBNU8": {
       "type": "product-hotspot",
       "blocks": {
-        "hotspot_BdDbdJ": {
-          "type": "hotspot",
-          "settings": {
-            "product_image": "shopify://shop_images/black-bag-over-the-shoulder_925x_4cae5708-5e9e-4e7e-96ec-9649f0c20cd8.jpg",
-            "product_handle": "black-leather-bag",
-            "pos_top": 51,
-            "pos_left": 55
-          }
-        },
-        "hotspot_yDNgWy": {
-          "type": "hotspot",
-          "settings": {
-            "product_image": "shopify://shop_images/man-adjusts-blue-tuxedo-bowtie_925x_55a49e12-d54b-488e-b7a0-ea4c201eb01f.jpg",
-            "product_handle": "blue-silk-tuxedo",
-            "pos_top": 20,
-            "pos_left": 20
-          }
-        }
-      },
-      "block_order": [
-        "hotspot_BdDbdJ",
-        "hotspot_yDNgWy"
-      ],
-      "name": "Product Section",
-      "settings": {
-        "section_header": "Featured Products",
-        "collection": "wild",
-        "products_show": "6"
-      }
-    },
-    "product_hotspot_LTckMD": {
-      "type": "product-hotspot",
-      "blocks": {
-        "hotspot_q6de88": {
+        "hotspot_KUWj4Q": {
           "type": "hotspot",
           "settings": {
             "product_image": "shopify://shop_images/black-bag-over-the-shoulder_925x_4cae5708-5e9e-4e7e-96ec-9649f0c20cd8.jpg",
@@ -95,7 +62,7 @@
         }
       },
       "block_order": [
-        "hotspot_q6de88"
+        "hotspot_KUWj4Q"
       ],
       "name": "Product Section",
       "settings": {
@@ -108,7 +75,6 @@
   "order": [
     "header",
     "custom_secction_k9qhJT",
-    "product_hotspot_VHtXGa",
-    "product_hotspot_LTckMD"
+    "product_hotspot_hcBNU8"
   ]
 }
