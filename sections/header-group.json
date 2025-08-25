@@ -68,10 +68,39 @@
             "pos_top": 56,
             "pos_left": 49
           }
+        },
+        "hotspot_eQBp4U": {
+          "type": "hotspot",
+          "settings": {
+            "product_image": "shopify://shop_images/man-adjusts-blue-tuxedo-bowtie_925x_55a49e12-d54b-488e-b7a0-ea4c201eb01f.jpg",
+            "product_handle": "blue-silk-tuxedo",
+            "pos_top": 20,
+            "pos_left": 20
+          }
+        },
+        "hotspot_6FJPMM": {
+          "type": "hotspot",
+          "settings": {
+            "product_image": "shopify://shop_images/red-plaid-shirt_925x_70e9e5a8-8fc5-4d60-9a9a-cc2e0dd57cc9.jpg",
+            "product_handle": "chequered-red-shirt",
+            "pos_top": 20,
+            "pos_left": 20
+          }
+        },
+        "hotspot_FPpfxJ": {
+          "type": "hotspot",
+          "settings": {
+            "product_handle": "",
+            "pos_top": 20,
+            "pos_left": 20
+          }
         }
       },
       "block_order": [
-        "hotspot_hzcnTy"
+        "hotspot_hzcnTy",
+        "hotspot_eQBp4U",
+        "hotspot_6FJPMM",
+        "hotspot_FPpfxJ"
       ],
       "name": "Product Hotspot Section",
       "settings": {
